@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+<Level name="Level1">
+    <entity id="dolan">
+        <position x="200" y="250" />
+        <image path="data/dolan.png"/>
+        <physics>
+            <smov id="movs" speed="20f" acc="5f" />
+            <tmov id="movt" speed="200f" acc="12f" />
+            <collision id="col" />
+        </physics>  
+    </entity>
+    <entity id="p1">
+        <position x="100" y="360" />
+        <image path="data/p1.png"/>    
+    </entity>
+    <entity id="gooby">
+        <position x="730" y="100" />
+        <image path="data/gooby.png"/>    
+    </entity>
+    <entity id="p3">
+        <position x="50" y="540" />
+        <image path="data/p3.png"/>    
+    </entity>  
+    <entity id="patwma">
+        <position x="50" y="540" />
+        <image path="data/patwma.png" />
+    </entity>
+</Level>
