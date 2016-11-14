@@ -8,7 +8,7 @@ import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class ImageComponent extends Component{
-
+    
     Image img;
     protected Vector2f pos;
     protected float scale;
@@ -37,10 +37,10 @@ public class ImageComponent extends Component{
     public void setFS(){
         owner.setScale(4);
     }
-  
+    
     @Override
     public void update(GameContainer gc, StateBasedGame sb, int delta){
         img.rotate(owner.getRotation() - img.getRotation());
     }
-
+    
 }

@@ -9,6 +9,13 @@ import engine.entity.component.TopDownMovementComponent;
 import engine.manager.CollisionManager;
 import engine.manager.EventManager;
 import game.Camera;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.json.simple.parser.ParseException;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -26,30 +33,57 @@ class GameplayState extends BasicGameState {
     private Entity ent,p1,p2,p3;
     private Entity patwma,gooby;
     private Camera camera;
+
+    private ArrayList<Entity> entityArray;
+    
     public GameplayState(int GAMESTATE) {
         super();
         id = GAMESTATE;
+        entityArray = new ArrayList();
     }
 
     @Override
     public int getID() {
         return id;
     }
+    
+    public void loadEntities(ArrayList<Entity> entities){
+        this.entityArray = entities;
+    }
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        ent = new Entity("greenbox");
+        
+        try {
+            loadEntities(LevelLoader.load(new FileReader("src/data/level1.lvl")));
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(GameplayState.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(GameplayState.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(GameplayState.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        /*ent = new Entity("greenbox");
         p1 = new Entity("p1");
         p2 = new Entity("p2");
         p3 = new Entity("p3");
         patwma = new Entity("patwm");
         gooby = new Entity("gooby");
-        camera = new Camera(ent);
+        */camera = new Camera(entityArray.get(3));/*
         
-        ent.setPosition(new Vector2f(200,250));
-        p1.setPosition(new Vector2f(100,360));
+        entityArray.add(ent);
+        entityArray.add(p1);
+        entityArray.add(p2);
+        entityArray.add(p3);
+        entityArray.add(patwma);
+        entityArray.add(gooby);
+        //entityArray.add(camera);
+        
+        ent.setPosition(new Vector2f(100,250));
+        p1.setPosition(new Vector2f(200,360));
         p2.setPosition(new Vector2f(730,80));
-        p3.setPosition(new Vector2f(50,250));
+        p3.setPosition(new Vector2f(450,250));
         patwma.setPosition(new Vector2f(50,540));
         gooby.setPosition(new Vector2f(0,0));
         ent.AddComponent(new AnimationComponent("img", new Image("data/test2.png")));
@@ -62,40 +96,35 @@ class GameplayState extends BasicGameState {
         ent.AddComponent(new TopDownMovementComponent("movt",200f,12f));
         
         ent.AddComponent(new CollisionComponent("col"));
-        
-        Entity[] enta = new Entity[5];
-        enta[0] = ent;
-        enta[1] = p1;
-        enta[2] = p2;
-        enta[3] = patwma;
-        enta[4] = p3;
-        CollisionManager.getInstance().loadEntities(enta);
+        */
+        ArrayList<Entity> arent = new ArrayList();
+        for(Entity ent:entityArray){
+            if(ent.getComponent("col")!=null || ent.getComponent("scol")!=null)
+                arent.add(ent);
+        }
+        CollisionManager.getInstance().loadEntities(arent);
     }
 
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException {
-        ent.render(gc, sbg, grphcs);
-        p1.render(gc, sbg, grphcs);
-        p2.render(gc, sbg, grphcs);
-        p3.render(gc, sbg, grphcs);
-        patwma.render(gc, sbg, grphcs);
-        gooby.render(gc, sbg, grphcs);
-        //grphcs.drawRect(Camera.getCamera().x,Camera.getCamera().y,Camera.getWidth(),Camera.getHeight());
+        for(Entity entity : entityArray){
+            entity.render(gc, sbg, grphcs);
+        }
     }
 
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-        ent.update(gc, sbg, delta);
+        
+        for(Entity entity : entityArray){
+            entity.update(gc, sbg, delta);
+        }
+        
         camera.update(gc, sbg, delta);
-        p1.update(gc, sbg, delta);
-        p2.update(gc, sbg, delta);
-        p3.update(gc, sbg, delta);
-        patwma.update(gc, sbg, delta);
         
         CollisionManager.getInstance().update();
         if(EventManager.getInstance().update()){
-             //gooby.AddComponent(new ImageComponent("img", new Image("data/sssss.png")));
-             //((ImageComponent)gooby.getComponent("img")).setFS();
+             gooby.AddComponent(new ImageComponent("img", new Image("data/sssss.png")));
+             ((ImageComponent)gooby.getComponent("img")).setFS();
         }
     }
 

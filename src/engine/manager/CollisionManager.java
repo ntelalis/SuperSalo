@@ -2,6 +2,7 @@ package engine.manager;
 
 import engine.entity.Entity;
 import engine.entity.component.CollisionComponent;
+import java.util.ArrayList;
 
 public class CollisionManager {
     
@@ -45,6 +46,14 @@ public class CollisionManager {
         }
         if(entity2.getComponent("col")!=null) {
             ((CollisionComponent)entity2.getComponent("col")).collision(entity1);
+        }
+    }
+
+    public void loadEntities(ArrayList<Entity> entityArray) {
+        entities = new Entity[entityArray.size()];
+        int i=0;
+        for(Object ent: entityArray.toArray()){
+            this.entities[i++] = Entity.class.cast(ent);
         }
     }
 }

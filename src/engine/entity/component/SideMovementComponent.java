@@ -6,7 +6,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class SideMovementComponent extends MovementComponent {
-
+    
     private float maxspeed;
     private float maxacceleration;
     private float friction,f;
@@ -15,9 +15,9 @@ public class SideMovementComponent extends MovementComponent {
         this.id = id;
         this.maxspeed = maxspeed;
         this.maxacceleration = maxacceleration;
-        this.friction = 0.97f;
+        this.friction = 1;
     }
- 
+    
     
     public float getMaxSpeed(){
         return maxspeed;
@@ -46,7 +46,7 @@ public class SideMovementComponent extends MovementComponent {
     @Override
     public void update(GameContainer gc, StateBasedGame sb, int delta) {
         
-        Input input = gc.getInput();  
+        Input input = gc.getInput();
         
         if(Math.abs(velocity)>maxspeed)
             if(velocity>0)
@@ -57,6 +57,7 @@ public class SideMovementComponent extends MovementComponent {
         
         if(input.isKeyDown(Input.KEY_D) && input.isKeyDown(Input.KEY_A)){
             acceleration=0;
+            ((AnimationComponent)owner.getComponent("img")).stopAnimation();
         }
         else if(input.isKeyDown(Input.KEY_D)){
             acceleration=maxacceleration;

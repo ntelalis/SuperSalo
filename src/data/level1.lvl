@@ -1,0 +1,51 @@
+{
+  "greenbox": {
+    "type": "player",
+    "pos": [150,250],
+    "comps": {
+      "Animation": "data/test2.png",
+      "SideMovement": [20.0,5.0],
+	  "TopDownMovement": [200.0,12.0],
+	  "Collision": "true"
+    }
+  },
+  "p1": {
+    "type": "box",
+    "pos": [200,360],
+    "comps": {
+      "Image": "data/p1.png"
+	  "Collision": "simple"
+    }
+  },
+  "p2": {
+    "type": "player",
+    "pos": [730,80],
+    "comps": {
+      "Image": "data/gooby.png"
+	  "Collision": "simple"
+    }
+  },
+  "p3": {
+    "type": "player",
+    "pos": [450,250],
+    "comps": {
+      "Image": "data/p2.png"
+	  "Collision": "simple"
+    }
+  },
+  "patwm": {
+    "type": "player",
+    "pos": [50,540],
+    "comps": {
+      "Image": "data/patwma.png"
+	  "Collision": "simple"
+    }
+  },
+  "bg":{
+    "type" "background",
+    "pos": [-33350,0],
+    "comps": {
+      "Image": "data/background0.png"
+    }
+  }
+}
