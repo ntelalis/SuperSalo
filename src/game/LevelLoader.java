@@ -83,7 +83,8 @@ public class LevelLoader {
                         if(((String)compies.get(key)).equals("true"))
                             entity.AddComponent(new CollisionComponent("col"));
                         else if(((String)compies.get(key)).equals("simple"))
-                            entity.AddComponent(new SimpleCollision("scol"));
+                            //entity.AddComponent(new SimpleCollision("scol"));
+                            entity.AddComponent(new CollisionComponent("col"));
                         break;
                 }
             }
