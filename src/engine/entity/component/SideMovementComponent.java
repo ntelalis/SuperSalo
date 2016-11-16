@@ -46,31 +46,11 @@ public class SideMovementComponent extends MovementComponent {
     @Override
     public void update(GameContainer gc, StateBasedGame sb, int delta) {
         
-        Input input = gc.getInput();
-        
         if(Math.abs(velocity)>maxspeed)
             if(velocity>0)
-                velocity=maxspeed;
+                setVelocity(maxspeed);
             else
-                velocity=-maxspeed;
-        
-        
-        if(input.isKeyDown(Input.KEY_D) && input.isKeyDown(Input.KEY_A)){
-            acceleration=0;
-            ((AnimationComponent)owner.getComponent("img")).stopAnimation();
-        }
-        else if(input.isKeyDown(Input.KEY_D)){
-            acceleration=maxacceleration;
-            ((AnimationComponent)owner.getComponent("img")).getRightAnimation().start();
-        }
-        else if(input.isKeyDown(Input.KEY_A)){
-            acceleration=-maxacceleration;
-            ((AnimationComponent)owner.getComponent("img")).getLeftAnimation().start();
-        }
-        else{
-            acceleration=0f;
-            ((AnimationComponent)owner.getComponent("img")).stopAnimation();
-        }
+                setVelocity(-maxspeed);
         
         velocity += acceleration;
         f=friction*velocity;

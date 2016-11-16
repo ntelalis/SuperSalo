@@ -17,6 +17,14 @@ public class TopDownMovementComponent extends MovementComponent {
         this.gravity = false;
         this.maxspeed = maxspeed;
     }
+
+    public void setMaxSpeed(float maxspeed) {
+        this.maxspeed = maxspeed;
+    }
+
+    public float getMaxSpeed() {
+        return maxspeed;
+    }
     
     public boolean getGravity(){
         return gravity;
@@ -32,10 +40,6 @@ public class TopDownMovementComponent extends MovementComponent {
         Input input = gc.getInput();
         Vector2f pos = owner.getPosition();
         
-        if(input.isKeyPressed(Input.KEY_SPACE) && ((CollisionComponent)owner.getComponent("col")).downcol==true){
-            velocity=maxspeed;
-            gravity=false;
-        }
         if(!gravity)
             ((SideMovementComponent)owner.getComponent("movs")).setFriction(0.1f);
         else

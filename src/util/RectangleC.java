@@ -4,7 +4,7 @@ import org.newdawn.slick.geom.Rectangle;
 
 public class RectangleC extends Rectangle{
 
-    private Rectangle top,down,left,right;
+    private Rectangle top,bot,left,right;
     
     public RectangleC(float minx, float miny, float maxx, float maxy){
         super(minx,miny,maxx,maxy);
@@ -13,14 +13,14 @@ public class RectangleC extends Rectangle{
     
     private void subrectangles(){
         top = new Rectangle(x+width*0.05f,y,width*0.9f,height*0.05f);
-        down = new Rectangle(x+width*0.05f,maxY-height*0.05f,width*0.9f,height*0.05f);
+        bot = new Rectangle(x+width*0.05f,maxY-height*0.05f,width*0.9f,height*0.05f);
         left = new Rectangle(x,y+height*0.05f,width*0.05f,height*0.9f);
         right = new Rectangle(maxX-width*0.05f,y+height*0.05f,width*0.05f,height*0.9f);
     }
     
     private void update(){
         top.setLocation(x+width*0.05f,y);
-        down.setLocation(x+width*0.05f,maxY-height*0.05f);
+        bot.setLocation(x+width*0.05f,maxY-height*0.05f);
         left.setLocation(x,y+height*0.05f);
         right.setLocation(maxX-width*0.05f,y+height*0.05f);
     }
@@ -29,8 +29,8 @@ public class RectangleC extends Rectangle{
         return top;
     }
     
-    public Rectangle getDownRectangle(){
-        return down;
+    public Rectangle getBotRectangle(){
+        return bot;
     }
     
     public Rectangle getLeftRectangle(){

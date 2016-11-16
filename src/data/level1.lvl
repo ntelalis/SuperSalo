@@ -3,49 +3,50 @@
     "type": "player",
     "pos": [150,250],
     "comps": {
-      "Animation": "data/test2.png",
+      "Animation": ["1","data/test2.png"],
       "SideMovement": [20.0,5.0],
 	  "TopDownMovement": [200.0,12.0],
 	  "Collision": "true"
+	  "Control": "true"
     }
   },
   "p1": {
-    "type": "box",
+    "type": "solid",
     "pos": [200,360],
     "comps": {
-      "Image": "data/p1.png"
-	  "Collision": "simple"
+      "Image": ["1","data/p1.png"],
+	  "Collision": "true"
     }
   },
   "p2": {
-    "type": "player",
+    "type": "enemy",
     "pos": [730,80],
     "comps": {
-      "Image": "data/gooby.png"
-	  "Collision": "simple"
+      "Image": ["1","data/gooby.png"],
+	  "Collision": "true"
     }
   },
   "p3": {
-    "type": "player",
+    "type": "solid",
     "pos": [450,250],
     "comps": {
-      "Image": "data/p2.png"
-	  "Collision": "simple"
+      "Image": ["1","data/p2.png"],
+	  "Collision": "true"
     }
   },
   "patwm": {
-    "type": "player",
+    "type": "solid",
     "pos": [50,540],
     "comps": {
-      "Image": "data/patwma.png"
-	  "Collision": "simple"
+      "Image": ["1","data/patwma.png"],
+	  "Collision": "true"
     }
   },
   "bg":{
-    "type" "background",
-    "pos": [-33350,0],
+    "type" "bg",
+    "pos": [-500,0],
     "comps": {
-      "Image": "data/background0.png"
+      "Image": ["0","data/background0.png"]
     }
   }
 }

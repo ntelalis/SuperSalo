@@ -12,15 +12,18 @@ import org.newdawn.slick.state.StateBasedGame;
  *
  * @author ntelalis
  */
-public class SimpleCollision extends Component{
+public class AIComponent extends Component{
 
-    public SimpleCollision(String id){
-        this.id =id;
+    private String enemyType;
+    
+    public AIComponent(String id, String enemyType){
+        this.id = id;
+        this.enemyType = enemyType;
     }
-
+    
     @Override
     public void update(GameContainer gc, StateBasedGame sb, int delta) {
-        owner.setShapeOrigin(owner.getPosition());
+        
     }
     
 }

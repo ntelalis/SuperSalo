@@ -9,9 +9,9 @@ package game;
 import engine.entity.Entity;
 import engine.entity.component.AnimationComponent;
 import engine.entity.component.CollisionComponent;
+import engine.entity.component.ControlComponent;
 import engine.entity.component.ImageComponent;
 import engine.entity.component.SideMovementComponent;
-import engine.entity.component.SimpleCollision;
 import engine.entity.component.TopDownMovementComponent;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -50,7 +50,8 @@ public class LevelLoader {
             JSONObject enty = (JSONObject)jsonobj.get(name);
             
             String type = (String)enty.get("type");
-            //TO-DO
+            
+            entity.setType(type);
             
             long x = (long)(((JSONArray)enty.get("pos")).get(0));
             long y = (long)(((JSONArray)enty.get("pos")).get(1));
@@ -64,10 +65,10 @@ public class LevelLoader {
                 
                 switch(key){
                     case "Image":
-                        entity.AddComponent(new ImageComponent("img", new Image((String)compies.get(key))));
+                        entity.AddComponent(new ImageComponent("img", new Image((String)(((JSONArray)compies.get("Image")).get(1))), Integer.parseInt((String)(((JSONArray)compies.get("Image")).get(0))) ));
                         break;
                     case "Animation":
-                        entity.AddComponent(new AnimationComponent("img", new Image((String)compies.get(key))));
+                        entity.AddComponent(new AnimationComponent("img", new Image((String)(((JSONArray)compies.get("Animation")).get(1))),Integer.parseInt((String)(((JSONArray)compies.get("Animation")).get(0)))));
                         break;
                     case "SideMovement":
                         double smaxspeed = (double)(((JSONArray)compies.get("SideMovement")).get(0));
@@ -81,10 +82,11 @@ public class LevelLoader {
                         break;
                     case "Collision":
                         if(((String)compies.get(key)).equals("true"))
-                            entity.AddComponent(new CollisionComponent("col"));
-                        else if(((String)compies.get(key)).equals("simple"))
-                            //entity.AddComponent(new SimpleCollision("scol"));
-                            entity.AddComponent(new CollisionComponent("col"));
+                            entity.AddComponent(new CollisionComponent("col",type));
+                        break;
+                    case "Control":
+                        if(((String)compies.get(key)).equals("true"))
+                            entity.AddComponent(new ControlComponent("ctrl"));
                         break;
                 }
             }

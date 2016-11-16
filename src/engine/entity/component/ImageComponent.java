@@ -9,13 +9,15 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class ImageComponent extends Component{
     
-    Image img;
+    protected Image img;
+    protected int depth;
     protected Vector2f pos;
     protected float scale;
     
-    public ImageComponent(String id, Image img){
+    public ImageComponent(String id, Image img, int depth){
         this.id = id;
         this.img = img;
+        this.depth = depth;
     }
     
     public Image getImage(){
@@ -24,6 +26,10 @@ public class ImageComponent extends Component{
     
     public void setImage(Image img){
         this.img = img;
+    }
+    
+    public int getDepth(){
+        return depth;
     }
     
     public void render(GameContainer gc, StateBasedGame sb, Graphics gr) {

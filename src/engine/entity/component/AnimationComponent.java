@@ -25,8 +25,8 @@ public class AnimationComponent extends ImageComponent{
     private Animation imgCurrent;
     private SpriteSheet a,a1;
     
-    public AnimationComponent(String id, Image img) {
-        super(id, img.getSubImage(0, 0, 32, 49));
+    public AnimationComponent(String id, Image img, int depth) {
+        super(id, img.getSubImage(0, 0, 32, 49),depth);
         a = new SpriteSheet(img,32,49);
         a1 = new SpriteSheet(img.getFlippedCopy(true, false),32,49);
         this.imgLeft = new Animation(a,100);

@@ -2,58 +2,161 @@ package engine.manager;
 
 import engine.entity.Entity;
 import engine.entity.component.CollisionComponent;
+import engine.entity.component.ImageComponent;
+import engine.entity.component.MovementComponent;
+import engine.entity.component.TopDownMovementComponent;
 import java.util.ArrayList;
+import org.newdawn.slick.geom.Vector2f;
 
 public class CollisionManager {
     
-    private static CollisionManager _instance = new CollisionManager();
-    private Entity[] entities;
+    private static final CollisionManager _instance = new CollisionManager();
+    private static ArrayList<Entity> entities;
     
     private CollisionManager(){
+        entities = new ArrayList();
     }
     
     public static CollisionManager getInstance(){
         return _instance;
     }
     
-    public void loadEntities(Entity[] entities){
-        this.entities = entities;
+    public void loadEntities(ArrayList<Entity> entities){
+        CollisionManager.entities = entities;
     }
     
-    public void updateCollisions(){
-        for(int i=0;i<entities.length;i++){
-                for(int j=i;j<entities.length;j++){
-                    if(!(entities[i].getId().equals(entities[j].getId()))){
-                        if(entities[i].getShape().intersects(entities[j].getShape())) {
-                            if(entities[i].getId().equalsIgnoreCase("greenbox") && entities[j].getId().equalsIgnoreCase("p2")){
-                                EventManager.getInstance().addEvent();
-                            }
-                            collisionResponse(entities[i],entities[j]);
-                        }
-                        
-                    }
-                }
-        }
+    public void addEntity(Entity entity){
+        CollisionManager.entities.add(entity);
+    }
+    
+    public void removeEntity(Entity entity){
+        CollisionManager.entities.remove(entity);
     }
     
     public void update(){
-        updateCollisions();
-    }
-
-    private void collisionResponse(Entity entity1, Entity entity2) {
-        if(entity1.getComponent("col")!=null) {
-            ((CollisionComponent)entity1.getComponent("col")).collision(entity2);
-        }
-        if(entity2.getComponent("col")!=null) {
-            ((CollisionComponent)entity2.getComponent("col")).collision(entity1);
+        checkCollisions();
+        for(Entity ent:entities){
+            ((CollisionComponent)ent.getComponent("col")).resetAll();
         }
     }
-
-    public void loadEntities(ArrayList<Entity> entityArray) {
-        entities = new Entity[entityArray.size()];
-        int i=0;
-        for(Object ent: entityArray.toArray()){
-            this.entities[i++] = Entity.class.cast(ent);
+    
+    public void checkCollisions(){
+        for(int i=0;i<entities.size();i++){
+            for(int j=i+1;j<entities.size();j++){
+                if(entities.get(i).getShape().intersects(entities.get(j).getShape())){
+                    checkSubCollisions(entities.get(i),entities.get(j));
+                }
+            }
         }
+    }
+    
+    private void checkSubCollisions(Entity entity1, Entity entity2) {
+        if(((CollisionComponent)entity1.getComponent("col")).collision(entity2) | ((CollisionComponent)entity2.getComponent("col")).collision(entity1) ){
+            collisionResolve(entity1,entity2);
+            
+        }
+    }
+    
+    private void collisionResolve(Entity ent1, Entity ent2){
+        
+        String ent1type = ent1.getType();
+        String ent2type = ent2.getType();
+        
+        switch(ent1type){
+            case "player":
+                System.out.println(ent1type+" "+ent2type);
+                switch(ent2type){
+                    case "enemy":
+                        killPlayer(ent1);
+                        break;
+                    case "solid":
+                        resolvePlayer(ent1,ent2);
+                        break;
+                }
+                
+                break;
+        }
+        switch(ent2type){
+            case "player":
+                switch(ent1type){
+                    case "enemy":
+                        killPlayer(ent2);
+                        break;
+                    case "solid":
+                        resolvePlayer(ent2,ent1);
+                        break;
+                }
+                break; 
+        }
+        //((CollisionComponent)ent1.getComponent("col")).resetAll();
+        //((CollisionComponent)ent2.getComponent("col")).resetAll();
+    }
+    
+    private void resolvePlayer(Entity player, Entity other){
+        
+        
+        float xspeed = Math.abs(((MovementComponent)player.getComponent("movs")).getVelocity());
+        float yspeed = Math.abs(((MovementComponent)player.getComponent("movt")).getVelocity());
+        
+        
+        
+        if(((CollisionComponent)player.getComponent("col")).isRight() && ((CollisionComponent)player.getComponent("col")).isLeft()){
+            topBot(player,other);
+        }
+        else if(((CollisionComponent)player.getComponent("col")).isTop() && ((CollisionComponent)player.getComponent("col")).isBot()){
+            rightLeft(player,other);
+        }
+        else if(xspeed>yspeed){
+            rightLeft(player,other);
+        }
+        else{
+            topBot(player,other);
+        }
+        
+        //((CollisionComponent)player.getComponent("col")).resetAll();
+        //((CollisionComponent)other.getComponent("col")).resetAll();
+    }
+    
+    private void topBot(Entity player, Entity other){
+        if(((CollisionComponent)player.getComponent("col")).isBot() && ((MovementComponent)player.getComponent("movt")).getVelocity() < 0){
+            Vector2f v = other.getPosition();
+            float y = v.y;
+            y -= ((ImageComponent)player.getComponent("img")).getImage().getHeight();
+            float x = player.getPosition().x;
+            player.setPosition(new Vector2f(x,y));
+            ((MovementComponent)player.getComponent("movt")).setVelocity(0f);
+            ((TopDownMovementComponent)player.getComponent("movt")).setGravity(true);
+        }
+        if(((CollisionComponent)player.getComponent("col")).isTop() && ((MovementComponent)player.getComponent("movt")).getVelocity() > 0){
+            Vector2f v = other.getPosition();
+            float y = v.y+((ImageComponent)other.getComponent("img")).getImage().getHeight();
+            float x = player.getPosition().x;
+            player.setPosition(new Vector2f(x,y));
+            ((MovementComponent)player.getComponent("movt")).setVelocity(0f);
+        }
+        
+    }
+    
+    private void rightLeft(Entity player, Entity other){
+        if(((CollisionComponent)player.getComponent("col")).isRight()){
+            Vector2f v = other.getPosition();
+            float x = v.x;
+            x -= ((ImageComponent)player.getComponent("img")).getImage().getWidth();
+            float y = player.getPosition().y;
+            player.setPosition(new Vector2f(x,y));
+            ((MovementComponent)player.getComponent("movs")).setVelocity(0);
+        }
+        if(((CollisionComponent)player.getComponent("col")).isLeft()){
+            Vector2f v = other.getPosition();
+            float x = v.x;
+            x += ((ImageComponent)other.getComponent("img")).getImage().getWidth();
+            float y = player.getPosition().y;
+            player.setPosition(new Vector2f(x,y));
+            ((MovementComponent)player.getComponent("movs")).setVelocity(0);
+        }
+    }
+    
+    private void killPlayer(Entity entity) {
+        EventManager.getInstance().addEvent(entity, Event.killPlayer);
     }
 }
