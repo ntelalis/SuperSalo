@@ -53,9 +53,13 @@ public class LevelLoader {
             
             entity.setType(type);
             
-            long x = (long)(((JSONArray)enty.get("pos")).get(0));
-            long y = (long)(((JSONArray)enty.get("pos")).get(1));
-            entity.setPosition(new Vector2f(x,y));
+            long sx = (long)(((JSONArray)enty.get("pos")).get(0));
+            long sy = (long)(((JSONArray)enty.get("pos")).get(1));
+            entity.setStartPosition(new Vector2f(sx,sy));
+            
+            long w = (long)(((JSONArray)enty.get("dimensions")).get(0));
+            long h = (long)(((JSONArray)enty.get("dimensions")).get(1));
+            entity.setDimensions(new Vector2f(w,h));
             
             JSONObject compies = (JSONObject)enty.get("comps");
             

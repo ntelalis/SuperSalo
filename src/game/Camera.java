@@ -39,7 +39,7 @@ public class Camera {
         return cameraentity;
     }
     
-    void update(GameContainer gc, StateBasedGame sbg, int delta) {
+    public void update(GameContainer gc, StateBasedGame sbg, int delta) {
         camerabox = new Rectangle((cameraentity.getShape().getCenterX()-width/2),0,width,height);
     }
 }

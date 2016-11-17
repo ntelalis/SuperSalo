@@ -19,7 +19,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class EntityManager {
     private static EntityManager _instance = new EntityManager();
     private ArrayList<Entity> entityList;
-    
+    private ArrayList<Entity> cloneList;
     
     private EntityManager(){
         entityList = new ArrayList();
@@ -31,7 +31,7 @@ public class EntityManager {
     
     public void loadEntities(ArrayList<Entity> entityList){
         this.entityList = entityList;
-        updateCol();
+        loadCollisionEntities();
     }
     
     public void addEntity(Entity e) {
@@ -48,14 +48,11 @@ public class EntityManager {
                 return entity;
             }
         }
+        entityList = cloneList;
         return null;
     }
     
-    private void resolveEvent(Event e){
-        
-    }
-    
-    private void updateCol(){
+    private void loadCollisionEntities(){
         ArrayList<Entity> colList = new ArrayList(); 
         for(Entity entity : entityList){
             if(entity.getComponent("col")!=null)
@@ -67,9 +64,6 @@ public class EntityManager {
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
         for(Entity entity : entityList){
             entity.update(gc, sbg, delta);
-        }
-        if(EventManager.getInstance().isUnresolvedEvent()){
-            updateCol();
         }
     }
     

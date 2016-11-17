@@ -38,7 +38,7 @@ public class TopDownMovementComponent extends MovementComponent {
     public void update(GameContainer gc, StateBasedGame sb, int delta) {
         
         Input input = gc.getInput();
-        Vector2f pos = owner.getPosition();
+        Vector2f pos = owner.getStartPosition();
         
         if(!gravity)
             ((SideMovementComponent)owner.getComponent("movs")).setFriction(0.1f);
@@ -48,6 +48,6 @@ public class TopDownMovementComponent extends MovementComponent {
         pos.y+=(gravitation-velocity)*delta/200f;
         velocity-=gravitation*delta/20f;
         
-        owner.setPosition(pos);
+        owner.setStartPosition(pos);
     }
 }

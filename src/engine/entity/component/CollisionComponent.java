@@ -60,7 +60,7 @@ public class CollisionComponent extends Component{
     
     @Override
     public void update(GameContainer gc, StateBasedGame sb, int delta) {
-        owner.setShapeOrigin(owner.getPosition());
+        owner.setShapeOrigin(owner.getStartPosition());
     }
     
     public boolean collision(Entity other){

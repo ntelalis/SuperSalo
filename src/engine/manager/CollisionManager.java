@@ -64,7 +64,6 @@ public class CollisionManager {
         
         switch(ent1type){
             case "player":
-                System.out.println(ent1type+" "+ent2type);
                 switch(ent2type){
                     case "enemy":
                         killPlayer(ent1);
@@ -72,6 +71,8 @@ public class CollisionManager {
                     case "solid":
                         resolvePlayer(ent1,ent2);
                         break;
+                    case "flagpole":
+                        EventManager.getInstance().resolveEvent(ent2,Event.win);
                 }
                 
                 break;
@@ -119,19 +120,19 @@ public class CollisionManager {
     
     private void topBot(Entity player, Entity other){
         if(((CollisionComponent)player.getComponent("col")).isBot() && ((MovementComponent)player.getComponent("movt")).getVelocity() < 0){
-            Vector2f v = other.getPosition();
+            Vector2f v = other.getStartPosition();
             float y = v.y;
             y -= ((ImageComponent)player.getComponent("img")).getImage().getHeight();
-            float x = player.getPosition().x;
-            player.setPosition(new Vector2f(x,y));
+            float x = player.getStartPosition().x;
+            player.setStartPosition(new Vector2f(x,y));
             ((MovementComponent)player.getComponent("movt")).setVelocity(0f);
             ((TopDownMovementComponent)player.getComponent("movt")).setGravity(true);
         }
         if(((CollisionComponent)player.getComponent("col")).isTop() && ((MovementComponent)player.getComponent("movt")).getVelocity() > 0){
-            Vector2f v = other.getPosition();
+            Vector2f v = other.getStartPosition();
             float y = v.y+((ImageComponent)other.getComponent("img")).getImage().getHeight();
-            float x = player.getPosition().x;
-            player.setPosition(new Vector2f(x,y));
+            float x = player.getStartPosition().x;
+            player.setStartPosition(new Vector2f(x,y));
             ((MovementComponent)player.getComponent("movt")).setVelocity(0f);
         }
         
@@ -139,24 +140,24 @@ public class CollisionManager {
     
     private void rightLeft(Entity player, Entity other){
         if(((CollisionComponent)player.getComponent("col")).isRight()){
-            Vector2f v = other.getPosition();
+            Vector2f v = other.getStartPosition();
             float x = v.x;
             x -= ((ImageComponent)player.getComponent("img")).getImage().getWidth();
-            float y = player.getPosition().y;
-            player.setPosition(new Vector2f(x,y));
+            float y = player.getStartPosition().y;
+            player.setStartPosition(new Vector2f(x,y));
             ((MovementComponent)player.getComponent("movs")).setVelocity(0);
         }
         if(((CollisionComponent)player.getComponent("col")).isLeft()){
-            Vector2f v = other.getPosition();
+            Vector2f v = other.getStartPosition();
             float x = v.x;
             x += ((ImageComponent)other.getComponent("img")).getImage().getWidth();
-            float y = player.getPosition().y;
-            player.setPosition(new Vector2f(x,y));
+            float y = player.getStartPosition().y;
+            player.setStartPosition(new Vector2f(x,y));
             ((MovementComponent)player.getComponent("movs")).setVelocity(0);
         }
     }
     
     private void killPlayer(Entity entity) {
-        EventManager.getInstance().addEvent(entity, Event.killPlayer);
+        EventManager.getInstance().resolveEvent(entity, Event.kill);
     }
 }

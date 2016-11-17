@@ -33,11 +33,12 @@ public class ImageComponent extends Component{
     }
     
     public void render(GameContainer gc, StateBasedGame sb, Graphics gr) {
-        pos = owner.getPosition();
+        pos = owner.getStartPosition();
         scale = owner.getScale();
         gr.translate(-Camera.getCamera().x, -Camera.getCamera().y);
         img.draw(pos.x,pos.y, scale);
         gr.translate(Camera.getCamera().x, Camera.getCamera().y);
+        
     }
     
     public void setFS(){

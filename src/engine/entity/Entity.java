@@ -2,6 +2,8 @@ package engine.entity;
 
 import engine.entity.component.Component;
 import engine.entity.component.ImageComponent;
+import engine.manager.Event;
+import engine.manager.EventManager;
 import game.Camera;
 import java.util.ArrayList;
 import org.newdawn.slick.Color;
@@ -16,7 +18,7 @@ public class Entity {
     private String id;
     private ArrayList<Component> components;
     private ImageComponent imageComponent;
-    private Vector2f position;
+    private Vector2f startPosition,endPosition;
     private RectangleC shape;
     private float rotation, scale;
     private String type;
@@ -29,11 +31,20 @@ public class Entity {
         
         imageComponent = null;
         
-        position = new Vector2f(0, 0);
+        startPosition = new Vector2f(0, 0);
+        endPosition = new Vector2f(0,0);
         scale = 1f;
         rotation = 0f;
         shape = new RectangleC(0, 0, 0, 0);
         type = "";
+    }
+    
+    public Vector2f getEndPosition() {
+        return endPosition;
+    }
+    
+    public void setEndPosition(Vector2f endPosition) {
+        this.endPosition = endPosition;
     }
     
     public void setType(String type) {
@@ -48,10 +59,10 @@ public class Entity {
         
         if (ImageComponent.class.isInstance(component)) {
             imageComponent = (ImageComponent) component;
-            shape.setX(position.x);
-            shape.setY(position.y);
-            shape.setWidth(imageComponent.getImage().getWidth());
-            shape.setHeight(imageComponent.getImage().getHeight());
+            if(imageComponent.getDepth()<3){
+                shape.setWidth(imageComponent.getImage().getWidth());
+                shape.setHeight(imageComponent.getImage().getHeight());
+            }
         }
         component.setOwnerEntity(this);
         components.add(component);
@@ -66,8 +77,8 @@ public class Entity {
         return null;
     }
     
-    public Vector2f getPosition() {
-        return position;
+    public Vector2f getStartPosition() {
+        return startPosition;
     }
     
     public float getScale() {
@@ -86,8 +97,15 @@ public class Entity {
         return id;
     }
     
-    public void setPosition(Vector2f position) {
-        this.position = position;
+    public void setDimensions(Vector2f dimensions){
+        this.shape.setWidth(dimensions.x);
+        this.shape.setHeight(dimensions.y);
+    }
+    
+    public void setStartPosition(Vector2f position) {
+        this.startPosition = position;
+        this.shape.setX(position.x);
+        this.shape.setY(position.y);
     }
     
     public void setScale(float scale) {
@@ -107,12 +125,6 @@ public class Entity {
         for (Component component : components) {
             component.update(gc, sb, delta);
         }
-        //test code
-        
-        
-        
-        //shape.setX(shape.getX()+Camera.getCamera().x);
-        //shape.setY(shape.getY()+Camera.getCamera().y);
     }
     
     public void render(GameContainer gc, StateBasedGame sb, Graphics gr, int depth) {

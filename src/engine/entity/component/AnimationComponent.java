@@ -51,7 +51,7 @@ public class AnimationComponent extends ImageComponent{
     
     @Override
     public void render(GameContainer gc, StateBasedGame sb, Graphics gr) {
-        pos = owner.getPosition();
+        pos = owner.getStartPosition();
         scale = owner.getScale();
         gr.translate(-Camera.getCamera().x, -Camera.getCamera().y);
         imgCurrent.draw(pos.x,pos.y);

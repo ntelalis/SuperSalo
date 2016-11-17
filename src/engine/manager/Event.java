@@ -2,5 +2,6 @@
 package engine.manager;
 
 public enum Event {
-    killPlayer
+    kill,
+    win
 }

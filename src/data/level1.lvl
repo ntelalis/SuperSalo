@@ -2,6 +2,7 @@
   "greenbox": {
     "type": "player",
     "pos": [150,250],
+	"dimensions" [0,0],
     "comps": {
       "Animation": ["1","data/test2.png"],
       "SideMovement": [20.0,5.0],
@@ -13,6 +14,7 @@
   "p1": {
     "type": "solid",
     "pos": [200,360],
+	"dimensions" [0,0],
     "comps": {
       "Image": ["1","data/p1.png"],
 	  "Collision": "true"
@@ -21,6 +23,7 @@
   "p2": {
     "type": "enemy",
     "pos": [730,80],
+	"dimensions" [0,0],
     "comps": {
       "Image": ["1","data/gooby.png"],
 	  "Collision": "true"
@@ -29,6 +32,7 @@
   "p3": {
     "type": "solid",
     "pos": [450,250],
+	"dimensions" [0,0],
     "comps": {
       "Image": ["1","data/p2.png"],
 	  "Collision": "true"
@@ -37,16 +41,36 @@
   "patwm": {
     "type": "solid",
     "pos": [50,540],
+	"dimensions" [0,0],
     "comps": {
       "Image": ["1","data/patwma.png"],
 	  "Collision": "true"
     }
   },
   "bg":{
-    "type" "bg",
+    "type": "solid",
     "pos": [-500,0],
+	"dimensions" [0,0],
     "comps": {
       "Image": ["0","data/background0.png"]
+    }
+  },
+  "deathbox":{
+	"type": "enemy",
+	"pos": [-2000,2000],
+	"dimensions" [10000,1],
+	"comps": {
+	  "Image": ["3","data/background0.png"]
+	  "Collision": "true"
+    }
+  },
+  "clearlvl":{
+	"type": "flagpole",
+	"pos": [-2000,2000],
+	"dimensions" [10000,1],
+	"comps": {
+	  "Image": ["3","data/background0.png"]
+	  "Collision": "true"
     }
   }
 }

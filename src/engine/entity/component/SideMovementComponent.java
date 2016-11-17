@@ -55,9 +55,9 @@ public class SideMovementComponent extends MovementComponent {
         velocity += acceleration;
         f=friction*velocity;
         velocity-=f*delta*0.01f;
-        Vector2f pos = owner.getPosition();
+        Vector2f pos = owner.getStartPosition();
         pos.x += velocity*delta*0.01f;
-        owner.setPosition(pos);
+        owner.setStartPosition(pos);
         
     }
     
