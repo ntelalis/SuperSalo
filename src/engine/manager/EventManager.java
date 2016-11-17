@@ -11,6 +11,11 @@ public class EventManager {
     private EventManager(){
     }
     
+    public void resetEvents(){
+        playerKilled = false;
+        levelCleared = false;
+    }
+    
     public static EventManager getInstance(){
         return _instance;
     }
@@ -26,6 +31,7 @@ public class EventManager {
                 break;
         }
     }
+    
     
     public boolean playerKilled(){
         return playerKilled;

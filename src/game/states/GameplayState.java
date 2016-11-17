@@ -17,6 +17,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.EmptyTransition;
@@ -24,25 +25,30 @@ import org.newdawn.slick.state.transition.FadeInTransition;
 
 public class GameplayState extends BasicGameState {
     
-    private int id;
+    private State state;
     private int level;
     private Camera camera;
     private Input input;
+    Sound bgsound;
+    private int lives;
     
-    public GameplayState(int GAMESTATE) {
+    public GameplayState(State state) {
         super();
-        id = GAMESTATE;
-        level=0;
+        this.state = state;
+        this.lives = 2;
+        this.level = 1;
     }
     
     @Override
     public int getID() {
-        return id;
+        return state.ordinal();
     }
     
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        level++;
+        EventManager.getInstance().resetEvents();
+        CollisionManager.getInstance().removeEntities();
+        EntityManager.getInstance().removeEntities();
         
         try {
             EntityManager.getInstance().loadEntities(LevelLoader.load(new FileReader("src/data/level"+String.valueOf(level)+".lvl")));
@@ -53,7 +59,16 @@ public class GameplayState extends BasicGameState {
         }
         
         camera = new Camera(EntityManager.getInstance().getEntity("greenbox"));
+        bgsound = new Sound("data/sounds/BGLevel"+String.valueOf(level)+".ogg");
         
+    }
+    
+    private void resetLevels(){
+        level=0;
+    }
+    
+    private void nextLevel(){
+        level++;
     }
     
     @Override
@@ -64,22 +79,34 @@ public class GameplayState extends BasicGameState {
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
         
+        if(!bgsound.playing()){
+            bgsound.play(1f,0.7f);
+        }
         
         if(EventManager.getInstance().playerKilled()){
-            
+            lives--;
+            bgsound.stop();
+            init(gc,sbg);
+            sbg.enterState(State.levelStart.ordinal(),new EmptyTransition(), new EmptyTransition());
+        }
+        if(lives==0){
+            lives = 2;
+            bgsound.stop();
+            init(gc,sbg);
+            sbg.enterState(State.gameOver.ordinal(),new EmptyTransition(), new EmptyTransition());
         }
         if(EventManager.getInstance().levelCleared()){
-            
+            sbg.enterState(State.levelClear.ordinal(),new EmptyTransition(), new FadeInTransition());
         }
         
         EntityManager.getInstance().update(gc,sbg,delta);
         CollisionManager.getInstance().update();
         
         camera.update(gc, sbg, delta);
-        input = gc.getInput();  
+        input = gc.getInput();
         
         if(input.isKeyPressed(Input.KEY_ESCAPE)){
-          sbg.enterState(4,new EmptyTransition(), new FadeInTransition());
+            sbg.enterState(State.pause.ordinal(),new EmptyTransition(), new FadeInTransition());
         }
     }
     

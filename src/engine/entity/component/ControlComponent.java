@@ -5,8 +5,12 @@
 */
 package engine.entity.component;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.state.StateBasedGame;
 
 /**
@@ -16,9 +20,15 @@ import org.newdawn.slick.state.StateBasedGame;
 public class ControlComponent extends Component{
     
     private Input input;
+    private Sound jmp;
     
     public ControlComponent(String id){
         this.id = id;
+        try {
+            jmp = new Sound("data/sounds/jump.ogg");
+        } catch (SlickException ex) {
+            Logger.getLogger(ControlComponent.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void moveStop(){
@@ -50,7 +60,9 @@ public class ControlComponent extends Component{
         if(((TopDownMovementComponent)owner.getComponent("movt")).getGravity()){
             ((TopDownMovementComponent)owner.getComponent("movt")).setVelocity(((TopDownMovementComponent)owner.getComponent("movt")).getMaxSpeed());
             ((TopDownMovementComponent)owner.getComponent("movt")).setGravity(false);
+            jmp.play(0.9f,0.9f );
         }
+        
     }
     
     @Override

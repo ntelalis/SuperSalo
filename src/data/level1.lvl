@@ -57,7 +57,7 @@
   },
   "deathbox":{
 	"type": "enemy",
-	"pos": [-2000,2000],
+	"pos": [-2000,1000],
 	"dimensions" [10000,1],
 	"comps": {
 	  "Image": ["3","data/background0.png"]

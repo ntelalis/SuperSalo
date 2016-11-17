@@ -40,6 +40,10 @@ public class CollisionManager {
         }
     }
     
+    public void removeEntities(){
+        CollisionManager.entities = null;
+    }
+    
     public void checkCollisions(){
         for(int i=0;i<entities.size();i++){
             for(int j=i+1;j<entities.size();j++){

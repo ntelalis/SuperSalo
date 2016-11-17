@@ -27,18 +27,18 @@ import org.newdawn.slick.state.transition.Transition;
  */
 public class PauseState extends BasicGameState{
     
-    private int id;
+    private State state;
     private  TrueTypeFont ttf;
     
     Input input;
     
-    public PauseState(int id){
-        this.id = id;
+    public PauseState(State state){
+        this.state = state;
     }
     
     @Override
     public int getID() {
-        return id;
+        return state.ordinal();
     }
     
     @Override

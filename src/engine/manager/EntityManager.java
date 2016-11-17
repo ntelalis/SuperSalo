@@ -6,6 +6,7 @@
 package engine.manager;
 
 import engine.entity.Entity;
+import engine.entity.Player;
 import java.util.ArrayList;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -20,6 +21,9 @@ public class EntityManager {
     private static EntityManager _instance = new EntityManager();
     private ArrayList<Entity> entityList;
     private ArrayList<Entity> cloneList;
+    private Player player;
+
+    
     
     private EntityManager(){
         entityList = new ArrayList();
@@ -52,13 +56,27 @@ public class EntityManager {
         return null;
     }
     
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+    
     private void loadCollisionEntities(){
         ArrayList<Entity> colList = new ArrayList(); 
         for(Entity entity : entityList){
             if(entity.getComponent("col")!=null)
                 colList.add(entity);
+            //if(entity.getType().equals("player"))
+                //player = (Player)entity;
         }
         CollisionManager.getInstance().loadEntities(colList);
+    }
+    
+    public void removeEntities(){
+        this.entityList = null;
     }
     
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
