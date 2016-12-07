@@ -4,7 +4,9 @@ import engine.entity.Entity;
 import engine.manager.CollisionManager;
 import engine.manager.EntityManager;
 import engine.manager.EventManager;
+import engine.manager.GameManager;
 import game.Camera;
+import game.HUD;
 import game.LevelLoader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -16,6 +18,7 @@ import org.json.simple.parser.ParseException;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 import org.newdawn.slick.state.BasicGameState;
@@ -29,8 +32,10 @@ public class GameplayState extends BasicGameState {
     private int level;
     private Camera camera;
     private Input input;
+    private HUD hud;
     Sound bgsound;
     private int lives;
+    private long milliseconds;
     
     public GameplayState(State state) {
         super();
@@ -49,6 +54,7 @@ public class GameplayState extends BasicGameState {
         EventManager.getInstance().resetEvents();
         CollisionManager.getInstance().removeEntities();
         EntityManager.getInstance().removeEntities();
+        GameManager.getInstance().resetTime();
         
         try {
             EntityManager.getInstance().loadEntities(LevelLoader.load(new FileReader("src/data/level"+String.valueOf(level)+".lvl")));
@@ -58,6 +64,7 @@ public class GameplayState extends BasicGameState {
             Logger.getLogger(GameplayState.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        hud = new HUD();
         camera = new Camera(EntityManager.getInstance().getEntity("greenbox"));
         bgsound = new Sound("data/sounds/BGLevel"+String.valueOf(level)+".ogg");
         
@@ -74,23 +81,31 @@ public class GameplayState extends BasicGameState {
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException {
         EntityManager.getInstance().render(gc,sbg,grphcs);
+        hud.render(gc, sbg, grphcs);
     }
     
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
         
-        if(!bgsound.playing()){
-            bgsound.play(1f,0.7f);
+        milliseconds+=delta;
+        
+        if(milliseconds>1000){
+            milliseconds=0;
+            GameManager.getInstance().decTime();
         }
         
-        if(EventManager.getInstance().playerKilled()){
-            lives--;
+        if(!bgsound.playing()){
+            bgsound.play(1f,1f);
+        }
+
+        if(EventManager.getInstance().playerKilled() || GameManager.getInstance().getTime()<0){
+            GameManager.getInstance().decLives();
             bgsound.stop();
             init(gc,sbg);
             sbg.enterState(State.levelStart.ordinal(),new EmptyTransition(), new EmptyTransition());
         }
-        if(lives==0){
-            lives = 2;
+        if(GameManager.getInstance().getLives()==0){
+            GameManager.getInstance().reset();
             bgsound.stop();
             init(gc,sbg);
             sbg.enterState(State.gameOver.ordinal(),new EmptyTransition(), new EmptyTransition());
@@ -101,6 +116,7 @@ public class GameplayState extends BasicGameState {
         
         EntityManager.getInstance().update(gc,sbg,delta);
         CollisionManager.getInstance().update();
+        
         
         camera.update(gc, sbg, delta);
         input = gc.getInput();

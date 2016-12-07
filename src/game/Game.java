@@ -1,5 +1,6 @@
 package game;
 
+import engine.manager.GameManager;
 import game.states.LevelClearState;
 import game.states.EndGameState;
 import game.states.GameplayState;
@@ -16,6 +17,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class Game extends StateBasedGame{
 
     public static int WIDTH=1024,HEIGHT=768; 
+    
     public Game(){
         super("SuperSalo");
     }
@@ -26,6 +28,7 @@ public class Game extends StateBasedGame{
         app.setTargetFrameRate(240);
         app.setSmoothDeltas(true);
         app.setAlwaysRender(true);
+        app.setShowFPS(false);
         app.start();
     }
     
@@ -40,11 +43,6 @@ public class Game extends StateBasedGame{
         addState(new EndGameState(State.endGameState));
         
     }
-
-    public void asdf(){
-        
-    }
-    
     
 
 }

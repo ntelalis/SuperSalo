@@ -41,7 +41,6 @@ public class SplashScreenState extends BasicGameState{
     private Input input;
     private float x=0;
     private long milliseconds = 0;
-    private  TrueTypeFont ttf;
     UnicodeFont font;
     private Image logo;
     private String startString = "PRESS START";
@@ -88,6 +87,7 @@ public class SplashScreenState extends BasicGameState{
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
         if(!snd.playing()){
+            System.out.println(Math.random());
             snd.play(1f,0.7f);
         }
         milliseconds+=i;
