@@ -8,6 +8,7 @@ import game.states.SplashScreenState;
 import game.states.LevelStartState;
 import game.states.GameOverState;
 import game.states.State;
+import java.io.File;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;

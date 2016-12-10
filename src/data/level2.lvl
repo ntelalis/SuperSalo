@@ -1,7 +1,7 @@
 {
   "greenbox": {
     "type": "player",
-    "pos": [250,560],
+    "pos": [250,600],
 	"dimensions" [0,0],
     "comps": {
       "Animation": ["1","data/test2.png"],
@@ -11,36 +11,36 @@
 	  "Control": "true"
     }
   },
-  "brick1": {
+"floor1": {
     "type": "solid",
-    "pos": [300,420],
+    "pos": [100,620],
 	"dimensions" [0,0],
     "comps": {
-      "Image": ["1","data/brick.png"],
+      "Image": ["1","data/floorS.png"],
 	  "Collision": "true"
     }
   },
-"brick2": {
+"block11": {
     "type": "solid",
-    "pos": [360,420],
-	"dimensions" [0,0],
-    "comps": {
-      "Image": ["1","data/brick.png"],
-	  "Collision": "true"
-    }
-  },
-  "block1": {
-    "type": "solid",
-    "pos": [420,420],
+    "pos": [100,480],
 	"dimensions" [0,0],
     "comps": {
       "Image": ["1","data/block.png"],
 	  "Collision": "true"
     }
   },
+"floor2": {
+    "type": "solid",
+    "pos": [300,250],
+	"dimensions" [0,0],
+    "comps": {
+      "Image": ["1","data/platS.png"],
+	  "Collision": "true"
+    }
+  },
   "enemy1": {
     "type": "enemy",
-    "pos": [350,560],
+    "pos": [360,190],
 	"dimensions" [0,0],
     "comps": {
       "Animation": ["1","data/enemy1.png"],
@@ -50,13 +50,289 @@
 	  "AI": "simple"
     }
   },
-  "patwm": {
+"floor3": {
     "type": "solid",
-    "pos": [50,620],
+    "pos": [550,460],
 	"dimensions" [0,0],
     "comps": {
-      "Image": ["1","data/patwma.png"],
+      "Image": ["1","data/platSS.png"],
 	  "Collision": "true"
+    }
+  },
+"floor4": {
+    "type": "solid",
+    "pos": [850,200],
+	"dimensions" [0,0],
+    "comps": {
+      "Image": ["1","data/platS.png"],
+	  "Collision": "true"
+    }
+  },
+"brick1": {
+    "type": "solid",
+    "pos": [1350,440],
+	"dimensions" [0,0],
+    "comps": {
+      "Image": ["1","data/brick.png"],
+	  "Collision": "true"
+    }
+  },
+"brick2": {
+    "type": "solid",
+    "pos": [1410,440],
+	"dimensions" [0,0],
+    "comps": {
+      "Image": ["1","data/brick.png"],
+	  "Collision": "true"
+    }
+  },
+"brick3": {
+    "type": "solid",
+    "pos": [1470,440],
+	"dimensions" [0,0],
+    "comps": {
+      "Image": ["1","data/brick.png"],
+	  "Collision": "true"
+    }
+  },
+"floor5": {
+    "type": "solid",
+    "pos": [1650,450],
+	"dimensions" [0,0],
+    "comps": {
+      "Image": ["1","data/platS.png"],
+	  "Collision": "true"
+    }
+  },
+"enemy2": {
+    "type": "enemy",
+    "pos": [1700,390],
+	"dimensions" [0,0],
+    "comps": {
+      "Animation": ["1","data/enemy1.png"],
+      "SideMovement": [20.0,5.0],
+	  "TopDownMovement": [200.0,12.0],
+	  "Collision": "true",
+	  "AI": "simple"
+    }
+  },
+"brick4": {
+    "type": "solid",
+    "pos": [2200,400],
+	"dimensions" [0,0],
+    "comps": {
+      "Image": ["1","data/brick.png"],
+	  "Collision": "true"
+    }
+  },
+"brick5": {
+    "type": "solid",
+    "pos": [2260,400],
+	"dimensions" [0,0],
+    "comps": {
+      "Image": ["1","data/brick.png"],
+	  "Collision": "true"
+    }
+  },
+"floor6": {
+    "type": "solid",
+    "pos": [2500,200],
+	"dimensions" [0,0],
+    "comps": {
+      "Image": ["1","data/platSS.png"],
+	  "Collision": "true"
+    }
+  },
+"floor7": {
+    "type": "solid",
+    "pos": [2400,620],
+	"dimensions" [0,0],
+    "comps": {
+      "Image": ["1","data/floorS.png"],
+	  "Collision": "true"
+    }
+  },
+"enemy3": {
+    "type": "enemy",
+    "pos": [2450,390],
+	"dimensions" [0,0],
+    "comps": {
+      "Animation": ["1","data/enemy1.png"],
+      "SideMovement": [20.0,5.0],
+	  "TopDownMovement": [200.0,12.0],
+	  "Collision": "true",
+	  "AI": "simple"
+    }
+  },
+"block1": {
+    "type": "solid",
+    "pos": [2600,480],
+	"dimensions" [0,0],
+    "comps": {
+      "Image": ["1","data/block.png"],
+	  "Collision": "true"
+    }
+  },
+"brick6": {
+    "type": "solid",
+    "pos": [2950,200],
+	"dimensions" [0,0],
+    "comps": {
+      "Image": ["1","data/brick.png"],
+	  "Collision": "true"
+    }
+  },
+"block2": {
+    "type": "solid",
+    "pos": [3150,200],
+	"dimensions" [0,0],
+    "comps": {
+      "Image": ["1","data/block.png"],
+	  "Collision": "true"
+    }
+  },
+"brick7": {
+    "type": "solid",
+    "pos": [3210,200],
+	"dimensions" [0,0],
+    "comps": {
+      "Image": ["1","data/brick.png"],
+	  "Collision": "true"
+    }
+  },
+"block3": {
+    "type": "solid",
+    "pos": [3270,200],
+	"dimensions" [0,0],
+    "comps": {
+      "Image": ["1","data/block.png"],
+	  "Collision": "true"
+    }
+  },
+"brick8": {
+    "type": "solid",
+    "pos": [3150,400],
+	"dimensions" [0,0],
+    "comps": {
+      "Image": ["1","data/brick.png"],
+	  "Collision": "true"
+    }
+  },
+"brick9": {
+    "type": "solid",
+    "pos": [3270,400],
+	"dimensions" [0,0],
+    "comps": {
+      "Image": ["1","data/brick.png"],
+	  "Collision": "true"
+    }
+  },
+"floor8": {
+    "type": "solid",
+    "pos": [3100,620],
+	"dimensions" [0,0],
+    "comps": {
+      "Image": ["1","data/floorS.png"],
+	  "Collision": "true"
+    }
+  },
+"enemy4": {
+    "type": "enemy",
+    "pos": [3150,550],
+	"dimensions" [0,0],
+    "comps": {
+      "Animation": ["1","data/enemy1.png"],
+      "SideMovement": [20.0,5.0],
+	  "TopDownMovement": [200.0,12.0],
+	  "Collision": "true",
+	  "AI": "simple"
+    }
+  },
+"floor9": {
+    "type": "solid",
+    "pos": [3500,350],
+	"dimensions" [0,0],
+    "comps": {
+      "Image": ["1","data/platS.png"],
+	  "Collision": "true"
+    }
+  },
+"block4": {
+    "type": "solid",
+    "pos": [4050,300],
+	"dimensions" [0,0],
+    "comps": {
+      "Image": ["1","data/block.png"],
+	  "Collision": "true"
+    }
+  },
+"block5": {
+    "type": "solid",
+    "pos": [4110,300],
+	"dimensions" [0,0],
+    "comps": {
+      "Image": ["1","data/block.png"],
+	  "Collision": "true"
+    }
+  },
+"brick10": {
+    "type": "solid",
+    "pos": [4170,300],
+	"dimensions" [0,0],
+    "comps": {
+      "Image": ["1","data/brick.png"],
+	  "Collision": "true"
+    }
+  },
+"block6": {
+    "type": "solid",
+    "pos": [4230,300],
+	"dimensions" [0,0],
+    "comps": {
+      "Image": ["1","data/block.png"],
+	  "Collision": "true"
+    }
+  },
+"floor10": {
+    "type": "solid",
+    "pos": [4000,600],
+	"dimensions" [0,0],
+    "comps": {
+      "Image": ["1","data/floorS.png"],
+	  "Collision": "true"
+    }
+  },
+"enemy5": {
+    "type": "enemy",
+    "pos": [4030,540],
+	"dimensions" [0,0],
+    "comps": {
+      "Animation": ["1","data/enemy1.png"],
+      "SideMovement": [20.0,5.0],
+	  "TopDownMovement": [200.0,12.0],
+	  "Collision": "true",
+	  "AI": "simple"
+    }
+  },
+"floor11": {
+    "type": "solid",
+    "pos": [4500,400],
+	"dimensions" [0,0],
+    "comps": {
+      "Image": ["1","data/floorM.png"],
+	  "Collision": "true"
+    }
+  },
+"enemy6": {
+    "type": "enemy",
+    "pos": [4500,320],
+	"dimensions" [0,0],
+    "comps": {
+      "Animation": ["1","data/enemy1.png"],
+      "SideMovement": [20.0,5.0],
+	  "TopDownMovement": [200.0,12.0],
+	  "Collision": "true",
+	  "AI": "advanced"
     }
   },
   "bg":{
@@ -78,7 +354,7 @@
   },
   "clearlvl":{
 	"type": "flagpole",
-	"pos": [1200,460],
+	"pos": [5000,250],
 	"dimensions" [0,0],
 	"comps": {
 	  "Image": ["1","data/flagpole.png"]

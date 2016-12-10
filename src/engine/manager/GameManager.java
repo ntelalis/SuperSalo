@@ -61,6 +61,7 @@ public class GameManager {
         GameManager.level = 1;
         GameManager.lives = 3;
         GameManager.score = 0;
+        GameManager.time = 300;
         resetTime();
     }
     

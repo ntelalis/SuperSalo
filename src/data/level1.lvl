@@ -1,7 +1,7 @@
 {
   "greenbox": {
     "type": "player",
-    "pos": [3500,560],
+    "pos": [250,560],
 	"dimensions" [0,0],
     "comps": {
       "Animation": ["1","data/test2.png"],

@@ -1,5 +1,7 @@
 package game.states;
 
+import engine.manager.EventManager;
+import engine.manager.GameManager;
 import java.awt.Font;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;

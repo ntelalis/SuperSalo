@@ -65,6 +65,12 @@ public class ControlComponent extends Component{
         
     }
     
+    public void forceJump(){
+            ((TopDownMovementComponent)owner.getComponent("movt")).setVelocity(((TopDownMovementComponent)owner.getComponent("movt")).getMaxSpeed());
+            ((TopDownMovementComponent)owner.getComponent("movt")).setGravity(false);
+            jmp.play(0.9f,0.9f );
+    }
+    
     @Override
     public void update(GameContainer gc, StateBasedGame sb, int delta) {
         

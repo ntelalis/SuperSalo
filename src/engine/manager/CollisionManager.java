@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.geom.Vector2f;
 
 public class CollisionManager {
@@ -187,6 +188,7 @@ public class CollisionManager {
         
         if(((CollisionComponent)ent.getComponent("col")).isBot()){
             EntityManager.getInstance().setCoin(ent.getStartPosition());
+            EventManager.getInstance().playCoin();
             ent.setId("brick100");
             try {
                 ((ImageComponent)ent.getComponent("img")).setImage(new Image("data/brick.png"));

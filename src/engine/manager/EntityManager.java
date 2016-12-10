@@ -91,8 +91,8 @@ public class EntityManager {
         coin = null;
     }
     
-    public Player getPlayer() {
-        return (Player)player;
+    public Entity getPlayer() {
+        return player;
     }
     
     public void setPlayer(Player player) {

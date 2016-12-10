@@ -35,7 +35,7 @@ import org.newdawn.slick.geom.Vector2f;
  */
 public class LevelLoader {
     
-    public static ArrayList load(FileReader fr) throws ParseException, IOException, SlickException{
+    public static ArrayList load(String fr) throws ParseException, IOException, SlickException{
         
         ArrayList<Entity> entitiesArray = new ArrayList();
         

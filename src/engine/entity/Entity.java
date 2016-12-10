@@ -125,6 +125,11 @@ public class Entity {
         this.shape.setY(origin.y);
     }
     
+    public void removeComponent(String id){
+        Component cmp = getComponent(id);
+        components.remove(cmp);
+    }
+    
     public void update(GameContainer gc, StateBasedGame sb, int delta) {
         for (Component component : components) {
             component.update(gc, sb, delta);

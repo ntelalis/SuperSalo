@@ -57,6 +57,10 @@ public class LevelClearState extends BasicGameState {
 
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException {
+        scoreString = "SCORE "+GameManager.getInstance().getScore();
+        levelString = "LEVEL "+(GameManager.getInstance().getLevel()-1)+" CLEARED!!";
+        levelTextWidth = font.getWidth(levelString+GameManager.getInstance().getLevel());
+        scoreTextWidth = font.getWidth(scoreString+GameManager.getInstance().getScore());
         font.drawString(gc.getWidth()/2 - levelTextWidth/2,gc.getHeight()*2/5-font.getHeight(levelString+GameManager.getInstance().getLevel()), levelString);
         font.drawString(gc.getWidth()/2 - scoreTextWidth/2,gc.getHeight()*2/5+font.getHeight(scoreString+GameManager.getInstance().getScore()), scoreString);
     }
@@ -66,7 +70,6 @@ public class LevelClearState extends BasicGameState {
         if(!snd.playing() && !played){
             snd.play();
             played=true;
-            scoreString = "SCORE "+GameManager.getInstance().getScore();
         }
         milliseconds+=i;
         
@@ -77,7 +80,10 @@ public class LevelClearState extends BasicGameState {
             if(GameManager.getInstance().getLevel()==4){
                 sbg.enterState(State.endGameState.ordinal(),new EmptyTransition(), new EmptyTransition());
             }
-            sbg.enterState(State.levelStart.ordinal(),new EmptyTransition(), new EmptyTransition());
+            else{
+                sbg.enterState(State.levelStart.ordinal(),new EmptyTransition(), new EmptyTransition());
+            }
+
         }
     }
 
