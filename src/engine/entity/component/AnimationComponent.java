@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
 
 package engine.entity.component;
 
@@ -19,21 +19,24 @@ import org.newdawn.slick.state.StateBasedGame;
  * @author Desktop
  */
 public class AnimationComponent extends ImageComponent{
-
+    
+    private static final int tw = 32;
+    private static final int th = 49;
+    
     private Animation imgLeft;
     private Animation imgRight;
     private Animation imgCurrent;
     private SpriteSheet a,a1;
     
     public AnimationComponent(String id, Image img, int depth) {
-        super(id, img.getSubImage(0, 0, 32, 49),depth);
-        a = new SpriteSheet(img,32,49);
-        a1 = new SpriteSheet(img.getFlippedCopy(true, false),32,49);
+        super(id, img.getSubImage(0, 0, tw, th),depth);
+        a = new SpriteSheet(img,tw,th);
+        a1 = new SpriteSheet(img.getFlippedCopy(true, false),tw,th);
         this.imgLeft = new Animation(a,100);
         this.imgRight = new Animation(a1,100);
         this.imgCurrent = imgRight;
-    } 
-
+    }
+    
     public Animation getRightAnimation(){
         imgCurrent = imgRight;
         return this.imgRight;

@@ -97,6 +97,10 @@ public class Entity {
         return id;
     }
     
+    public void setId(String id){
+        this.id = id;
+    }
+    
     public void setDimensions(Vector2f dimensions){
         this.shape.setWidth(dimensions.x);
         this.shape.setHeight(dimensions.y);

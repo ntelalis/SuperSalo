@@ -7,6 +7,7 @@
 package game;
 
 import engine.entity.Entity;
+import engine.entity.component.AIComponent;
 import engine.entity.component.AnimationComponent;
 import engine.entity.component.CollisionComponent;
 import engine.entity.component.ControlComponent;
@@ -92,6 +93,8 @@ public class LevelLoader {
                         if(((String)compies.get(key)).equals("true"))
                             entity.AddComponent(new ControlComponent("ctrl"));
                         break;
+                    case "AI":
+                        entity.AddComponent(new AIComponent("AI",((String)compies.get(key))));
                 }
             }
             entitiesArray.add(entity);

@@ -1,7 +1,6 @@
 package game;
 
 import engine.entity.Entity;
-import engine.entity.component.ImageComponent;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;

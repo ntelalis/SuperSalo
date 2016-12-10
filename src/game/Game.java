@@ -1,6 +1,5 @@
 package game;
 
-import engine.manager.GameManager;
 import game.states.LevelClearState;
 import game.states.EndGameState;
 import game.states.GameplayState;
@@ -41,8 +40,6 @@ public class Game extends StateBasedGame{
         addState(new PauseState(State.pause));
         addState(new GameOverState(State.gameOver));
         addState(new EndGameState(State.endGameState));
-        
     }
     
-
 }

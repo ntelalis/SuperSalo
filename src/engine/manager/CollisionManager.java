@@ -6,6 +6,10 @@ import engine.entity.component.ImageComponent;
 import engine.entity.component.MovementComponent;
 import engine.entity.component.TopDownMovementComponent;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 
 public class CollisionManager {
@@ -70,40 +74,57 @@ public class CollisionManager {
             case "player":
                 switch(ent2type){
                     case "enemy":
-                        killPlayer(ent1);
+                    case "solidenemy":
+                        EventManager.getInstance().resolveEvent(ent1, Event.kill);
                         break;
                     case "solid":
                         resolvePlayer(ent1,ent2);
+                        if(ent2.getId().contains("block")){
+                            resolveCoin(ent2);
+                        }
                         break;
                     case "flagpole":
                         EventManager.getInstance().resolveEvent(ent2,Event.win);
                 }
-                
                 break;
+            case "enemy":
+                switch(ent2type){
+                    case "solid":
+                        resolvePlayer(ent1,ent2);
+                        break;
+                }
         }
         switch(ent2type){
             case "player":
                 switch(ent1type){
                     case "enemy":
-                        killPlayer(ent2);
+                    case "solidenemy":
+                        EventManager.getInstance().resolveEvent(ent2, Event.kill);
                         break;
+                    case "solid":
+                        resolvePlayer(ent2,ent1);
+                        if(ent1.getId().contains("block")){
+                            resolveCoin(ent1);
+                            
+                        }
+                        break;
+                    case "flagpole":
+                        EventManager.getInstance().resolveEvent(ent1,Event.win);
+                }
+                break;
+            case "enemy":
+                switch(ent1type){
                     case "solid":
                         resolvePlayer(ent2,ent1);
                         break;
                 }
-                break; 
         }
-        //((CollisionComponent)ent1.getComponent("col")).resetAll();
-        //((CollisionComponent)ent2.getComponent("col")).resetAll();
     }
     
     private void resolvePlayer(Entity player, Entity other){
         
-        
         float xspeed = Math.abs(((MovementComponent)player.getComponent("movs")).getVelocity());
         float yspeed = Math.abs(((MovementComponent)player.getComponent("movt")).getVelocity());
-        
-        
         
         if(((CollisionComponent)player.getComponent("col")).isRight() && ((CollisionComponent)player.getComponent("col")).isLeft()){
             topBot(player,other);
@@ -113,13 +134,14 @@ public class CollisionManager {
         }
         else if(xspeed>yspeed){
             rightLeft(player,other);
+            ((CollisionComponent)player.getComponent("col")).collision(other);
+            topBot(player,other);
         }
         else{
             topBot(player,other);
+            ((CollisionComponent)player.getComponent("col")).collision(other);
+            rightLeft(player,other);
         }
-        
-        //((CollisionComponent)player.getComponent("col")).resetAll();
-        //((CollisionComponent)other.getComponent("col")).resetAll();
     }
     
     private void topBot(Entity player, Entity other){
@@ -161,7 +183,17 @@ public class CollisionManager {
         }
     }
     
-    private void killPlayer(Entity entity) {
-        EventManager.getInstance().resolveEvent(entity, Event.kill);
+    private void resolveCoin(Entity ent) {
+        
+        if(((CollisionComponent)ent.getComponent("col")).isBot()){
+            EntityManager.getInstance().setCoin(ent.getStartPosition());
+            ent.setId("brick100");
+            try {
+                ((ImageComponent)ent.getComponent("img")).setImage(new Image("data/brick.png"));
+            } catch (SlickException ex) {
+                Logger.getLogger(CollisionManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            GameManager.getInstance().incScoreBy(100);
+        }
     }
 }

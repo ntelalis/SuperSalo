@@ -12,17 +12,17 @@ public class RectangleC extends Rectangle{
     }
     
     private void subrectangles(){
-        top = new Rectangle(x+width*0.05f,y,width*0.9f,height*0.05f);
-        bot = new Rectangle(x+width*0.05f,maxY-height*0.05f,width*0.9f,height*0.05f);
-        left = new Rectangle(x,y+height*0.05f,width*0.05f,height*0.9f);
-        right = new Rectangle(maxX-width*0.05f,y+height*0.05f,width*0.05f,height*0.9f);
+        top = new Rectangle(x+width*0.1f,y,width*0.8f,height*0.1f);
+        bot = new Rectangle(x+width*0.1f,maxY-height*0.1f,width*0.8f,height*0.1f);
+        left = new Rectangle(x,y+height*0.1f,width*0.1f,height*0.8f);
+        right = new Rectangle(maxX-width*0.1f,y+height*0.1f,width*0.1f,height*0.8f);
     }
     
     private void update(){
-        top.setLocation(x+width*0.05f,y);
-        bot.setLocation(x+width*0.05f,maxY-height*0.05f);
-        left.setLocation(x,y+height*0.05f);
-        right.setLocation(maxX-width*0.05f,y+height*0.05f);
+        top.setLocation(x+width*0.1f,y);
+        bot.setLocation(x+width*0.1f,maxY-height*0.1f);
+        left.setLocation(x,y+height*0.1f);
+        right.setLocation(maxX-width*0.1f,y+height*0.1f);
     }
     
     public Rectangle getTopRectangle(){

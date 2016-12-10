@@ -1,0 +1,88 @@
+{
+  "greenbox": {
+    "type": "player",
+    "pos": [250,560],
+	"dimensions" [0,0],
+    "comps": {
+      "Animation": ["1","data/test2.png"],
+      "SideMovement": [20.0,5.0],
+	  "TopDownMovement": [220.0,12.0],
+	  "Collision": "true"
+	  "Control": "true"
+    }
+  },
+  "brick1": {
+    "type": "solid",
+    "pos": [300,420],
+	"dimensions" [0,0],
+    "comps": {
+      "Image": ["1","data/brick.png"],
+	  "Collision": "true"
+    }
+  },
+"brick2": {
+    "type": "solid",
+    "pos": [360,420],
+	"dimensions" [0,0],
+    "comps": {
+      "Image": ["1","data/brick.png"],
+	  "Collision": "true"
+    }
+  },
+  "block1": {
+    "type": "solid",
+    "pos": [420,420],
+	"dimensions" [0,0],
+    "comps": {
+      "Image": ["1","data/block.png"],
+	  "Collision": "true"
+    }
+  },
+  "enemy1": {
+    "type": "enemy",
+    "pos": [350,560],
+	"dimensions" [0,0],
+    "comps": {
+      "Animation": ["1","data/enemy1.png"],
+      "SideMovement": [20.0,5.0],
+	  "TopDownMovement": [200.0,12.0],
+	  "Collision": "true",
+	  "AI": "simple"
+    }
+  },
+  "patwm": {
+    "type": "solid",
+    "pos": [50,620],
+	"dimensions" [0,0],
+    "comps": {
+      "Image": ["1","data/patwma.png"],
+	  "Collision": "true"
+    }
+  },
+  "bg":{
+    "type": "solid",
+    "pos": [-1000,0],
+	"dimensions" [0,0],
+    "comps": {
+      "Image": ["0","data/background0.png"]
+    }
+  },
+  "deathbox":{
+	"type": "enemy",
+	"pos": [-2000,1000],
+	"dimensions" [10000,1],
+	"comps": {
+	  "Image": ["3","data/background0.png"]
+	  "Collision": "true"
+    }
+  },
+  "clearlvl":{
+	"type": "flagpole",
+	"pos": [1200,460],
+	"dimensions" [0,0],
+	"comps": {
+	  "Image": ["1","data/flagpole.png"]
+	  "Collision": "true"
+    }
+  }
+}

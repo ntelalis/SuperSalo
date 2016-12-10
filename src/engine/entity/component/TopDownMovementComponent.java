@@ -45,6 +45,8 @@ public class TopDownMovementComponent extends MovementComponent {
         else
             ((SideMovementComponent)owner.getComponent("movs")).setFriction(0.99f);
         
+        
+        gravity=false;
         pos.y+=(gravitation-velocity)*delta/200f;
         velocity-=gravitation*delta/20f;
         

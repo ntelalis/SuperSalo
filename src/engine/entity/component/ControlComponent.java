@@ -42,7 +42,7 @@ public class ControlComponent extends Component{
     }
     
     public void moveFastLeft(){
-        ((SideMovementComponent)owner.getComponent("movs")).setAcceleration(-5*((SideMovementComponent)owner.getComponent("movs")).getMaxAcceleration());
+        ((SideMovementComponent)owner.getComponent("movs")).setAcceleration(-3*((SideMovementComponent)owner.getComponent("movs")).getMaxAcceleration());
         ((AnimationComponent)owner.getComponent("img")).getLeftAnimation().start();
     }
     
@@ -52,7 +52,7 @@ public class ControlComponent extends Component{
     }
     
     public void moveFastRight(){
-        ((SideMovementComponent)owner.getComponent("movs")).setAcceleration(5*((SideMovementComponent)owner.getComponent("movs")).getMaxAcceleration());
+        ((SideMovementComponent)owner.getComponent("movs")).setAcceleration(3*((SideMovementComponent)owner.getComponent("movs")).getMaxAcceleration());
         ((AnimationComponent)owner.getComponent("img")).getRightAnimation().start();
     }
     

@@ -10,6 +10,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class ImageComponent extends Component{
     
     protected Image img;
+    protected Image imgf;
     protected int depth;
     protected Vector2f pos;
     protected float scale;
@@ -35,8 +36,18 @@ public class ImageComponent extends Component{
     public void render(GameContainer gc, StateBasedGame sb, Graphics gr) {
         pos = owner.getStartPosition();
         scale = owner.getScale();
+        
         gr.translate(-Camera.getCamera().x, -Camera.getCamera().y);
         img.draw(pos.x,pos.y, scale);
+        if(owner.getId().equalsIgnoreCase("bg")){
+            imgf = img.getFlippedCopy(true, false);
+            for(int i =1; i<6;i++){
+                if(i%2==1)
+                    imgf.draw(pos.x+img.getWidth()*i,pos.y,scale);
+                else
+                    img.draw(pos.x+img.getWidth()*i,pos.y, scale);
+            }
+        }
         gr.translate(Camera.getCamera().x, Camera.getCamera().y);
         
     }
