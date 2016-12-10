@@ -787,7 +787,7 @@
   },
   "enemy10": {
     "type": "enemy",
-    "pos": [9000,560],
+    "pos": [8850,560],
 	"dimensions" [0,0],
     "comps": {
       "Animation": ["1","data/enemy1.png"],
